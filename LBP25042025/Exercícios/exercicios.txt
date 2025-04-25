@@ -1,0 +1,10 @@
+Questão 1. Crie uma classe chamada livro com os seguintes atributos: Título, autor e número de páginas.
+Métodos: detalhes -> vai imprimir todos atributos do livro. Crie uma lista de objetos do tipo livro e 
+imprima o detalhes de cada um.
+
+Questão 2. Classe chamada produto. Atributos: Nome, preço e quantidade. Métodos: calcular_valor_total -> preço * quantidade,
+atualizar_quantidade -> atualizar a quantidade de produtos. Crie alguns objetos do tipo produto, calcule seus valores totais e 
+atualize a quantidade de cada um deles.
+
+Questão 3. Crie uma classe que simule um carrinho de compras de um e-commerce. Não pode conter conteúdo visual.
+
