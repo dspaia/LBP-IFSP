@@ -10,7 +10,6 @@ class Livro:
         print(f"Número de páginas: {self.numero_de_paginas}")
         
 
-
 lista_livros = []
 contador = 0
 
@@ -19,7 +18,6 @@ while True:
     autor = input("Autor: ")
     numero_de_paginas = int(input("Número de páginas: "))
 
-   
     livro = Livro(titulo, autor, numero_de_paginas)
     lista_livros.append(livro)
     contador += 1
@@ -32,7 +30,6 @@ while True:
     if continuar != 's' or 'n':
         print("Inválido!")
         continuar = input("Deseja adicionar outro livro? (s/n): ").lower()
-
 
 print("\nLivros cadastrados:")
 print(f"Total de livros cadastrados: {contador}\n")
