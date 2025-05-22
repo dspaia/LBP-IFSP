@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sucesso!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            color: #333;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #4caf50;
+        }
+        form {
+            margin-top: 10px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #4caf50;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Dados salvos com sucesso!</h1>
+    <form action="/exibir" method="GET">
+        <button type="submit">Ver dados enviados</button>
+    </form>
+</body>
+</html>
