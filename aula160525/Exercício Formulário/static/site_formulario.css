@@ -1,16 +1,12 @@
-/* site_formulario.css */
-
-/* Paleta de cores */
 :root {
   --color1: #5e027b;
   --color2: #4f026b;
   --color3: #40015a;
   --color4: #31014a;
   --color5: #220039;
-  --text-light: #fff; /* texto branco para legibilidade */
+  --text-light: #fff; 
 }
 
-/* Fundo com gradiente animado usando a paleta */
 body {
     background: linear-gradient(135deg, var(--color1), var(--color3));
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,7 +19,7 @@ body {
     flex-direction: column;
     animation: bgGradientShift 12s ease-in-out infinite alternate;
     min-height: 100vh;
-    margin: 40px 0; /* espaçamento em cima e embaixo */
+    margin: 40px 0;
 }
 
 @keyframes bgGradientShift {
@@ -64,7 +60,7 @@ h1 {
 
 @keyframes colorPulse {
   0%, 100% { color: var(--text-light); }
-  50% { color: #d6d6ff; } /* leve variação clara de branco */
+  50% { color: #d6d6ff; } 
 }
 
 form {
@@ -85,7 +81,7 @@ form {
     padding-bottom: 70px;
     display: flex;
     flex-direction: column;
-    align-items: stretch; /* para os filhos ocuparem a largura total */
+    align-items: stretch; 
 }
 
 form::before {
@@ -185,7 +181,7 @@ input[type="email"]:focus {
 input[type="submit"] {
     width: 100%;
     padding: 14px 0;
-    box-sizing: border-box; /* importante para o padding não aumentar a largura além do container */
+    box-sizing: border-box;
     border: none;
     border-radius: 16px;
     background: var(--color1);
@@ -197,7 +193,7 @@ input[type="submit"] {
     box-shadow: 0 0 20px 4px var(--color3);
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    display: block; /* garante que seja bloco e ocupe toda largura */
+    display: block; 
 }
 
 @keyframes pulse {
