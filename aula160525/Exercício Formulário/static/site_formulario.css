@@ -19,7 +19,11 @@ body {
     flex-direction: column;
     animation: bgGradientShift 12s ease-in-out infinite alternate;
     min-height: 100vh;
+<<<<<<< Updated upstream
     margin: 40px 0;
+=======
+    margin: 40px 0; 
+>>>>>>> Stashed changes
 }
 
 @keyframes bgGradientShift {
@@ -60,7 +64,11 @@ h1 {
 
 @keyframes colorPulse {
   0%, 100% { color: var(--text-light); }
+<<<<<<< Updated upstream
   50% { color: #d6d6ff; } 
+=======
+  50% { color: #d6d6ff; }
+>>>>>>> Stashed changes
 }
 
 form {
@@ -181,7 +189,11 @@ input[type="email"]:focus {
 input[type="submit"] {
     width: 100%;
     padding: 14px 0;
+<<<<<<< Updated upstream
     box-sizing: border-box;
+=======
+    box-sizing: border-box; 
+>>>>>>> Stashed changes
     border: none;
     border-radius: 16px;
     background: var(--color1);

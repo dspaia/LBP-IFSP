@@ -1,0 +1,4 @@
+** EXERCÍCIO **
+
+Crie um site, no qual tenha um formulário para a coleta de dados, armazene esses dados
+inseridos no flask e depois exiba os dados em outra página web.
