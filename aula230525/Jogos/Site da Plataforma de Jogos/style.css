@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* carrossel */
+.carrossel {
+  position: relative;
+  width: 340px;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+}
+
+/* pista do carrossel */
+.pista-carrossel {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* item do carrossel */
+.item-carrossel {
+  min-width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+/* links */
+.item-carrossel a {
+  display: block;
+  color: #333;
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.item-carrossel a:hover {
+  color: #007bff;
+}
+
+/* imagens */
+.item-carrossel img {
+  width: 90%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.item-carrossel img:hover {
+  transform: scale(1.05);
+}
+
+/* botões de navegação */
+.botao-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 22px;
+  color: #333;
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.botao-nav:hover:not(:disabled) {
+  background-color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+.botao-nav:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* posições dos botões */
+.botao-anterior {
+  left: 5px;
+}
+.botao-proximo {
+  right: 5px;
+}
