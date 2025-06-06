@@ -1,4 +1,3 @@
-/* Base resets and typography */
 *,
 *::before,
 *::after {
@@ -26,14 +25,12 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-/* Layout containers */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.125rem;
 }
 
-/* Header */
 .site-header {
   position: sticky;
   top: 0;
@@ -93,13 +90,11 @@ a:focus-visible {
   width: 100%;
 }
 
-/* Main Content */
 .main-content {
   padding-top: 4rem;
   padding-bottom: 5rem;
 }
 
-/* Hero Section */
 .hero {
   background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
   border-radius: 0.75rem;
@@ -137,7 +132,6 @@ a:focus-visible {
   user-select: none;
 }
 
-/* Game Section */
 .game-section > .container {
   display: flex;
   gap: 3rem;
@@ -179,17 +173,16 @@ a:focus-visible {
   font-size: 0.8rem;
 }
 .cell.hit {
-  background-color: #ef4444; /* Red */
+  background-color: #ef4444; 
   color: white;
   cursor: default;
 }
 .cell.miss {
-  background-color: #3b82f6; /* Blue */
+  background-color: #3b82f6;
   color: white;
   cursor: default;
 }
 
-/* Controls Section */
 .controls {
   margin-top: 4rem;
   text-align: center;
@@ -265,7 +258,6 @@ input[type="number"]:disabled {
   user-select: none;
 }
 
-/* Footer */
 .site-footer {
   border-top: 1px solid #e5e7eb;
   padding: 1.5rem 0;
@@ -275,7 +267,6 @@ input[type="number"]:disabled {
   user-select: none;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .game-section > .container {
     flex-direction: column;
