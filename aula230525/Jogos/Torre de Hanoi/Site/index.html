@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Torre de Hanoi - Visualizador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#" class="logo" aria-label="Logo Torre de Hanoi">🗼</a>
+        <nav role="navigation" aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li><a href="#" class="nav-link">Início</a></li>
+            <li><a href="#" class="nav-link">Como Jogar</a></li>
+            <li><a href="#" class="nav-link">Sobre</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" role="region" aria-labelledby="hero-title">
+      <div class="container">
+        <h1 class="hero-title" id="hero-title">Torre de Hanoi</h1>
+        <p class="hero-subtitle">
+          Visualize a clássica Torre de Hanoi, com interface elegante e intuitiva.<br />
+          Interatividade futura será integrada com Flask.
+        </p>
+        <button class="cta-button" disabled title="Funcionalidade futura">
+          Em breve: Jogar
+        </button>
+      </div>
+    </section>
+
+    <section class="game-viewer" role="region" aria-labelledby="visualizacao-postes">
+      <div class="container">
+        <h2 class="section-title" id="visualizacao-postes">Visualização das Torres</h2>
+        <div class="torres" aria-live="polite" aria-atomic="true" tabindex="0">
+          <article class="poste" id="posteA" aria-label="Poste A">
+            <h3 class="poste-title">Poste A</h3>
+            <div class="discos" aria-live="polite" aria-atomic="true">
+              <div class="disco disco-5" style="--width: 160px;" aria-label="Disco tamanho 5"></div>
+              <div class="disco disco-4" style="--width: 140px;" aria-label="Disco tamanho 4"></div>
+              <div class="disco disco-3" style="--width: 120px;" aria-label="Disco tamanho 3"></div>
+              <div class="disco disco-2" style="--width: 100px;" aria-label="Disco tamanho 2"></div>
+              <div class="disco disco-1" style="--width: 80px;" aria-label="Disco tamanho 1"></div>
+            </div>
+          </article>
+          <article class="poste" id="posteB" aria-label="Poste B">
+            <h3 class="poste-title">Poste B</h3>
+            <div class="discos" aria-live="polite" aria-atomic="true" tabindex="0">
+              <!-- Discos vazios -->
+            </div>
+          </article>
+          <article class="poste" id="posteC" aria-label="Poste C">
+            <h3 class="poste-title">Poste C</h3>
+            <div class="discos" aria-live="polite" aria-atomic="true" tabindex="0">
+              <!-- Discos vazios -->
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls" role="region" aria-labelledby="controls-title">
+      <div class="container">
+        <h2 class="section-title" id="controls-title">Controlar Movimento</h2>
+        <form aria-label="Controlar movimentação dos discos" class="form-move" onsubmit="event.preventDefault()">
+          <div class="form-group">
+            <label for="origem">Mover de:</label>
+            <select id="origem" name="origem" disabled aria-disabled="true">
+              <option value="A">Poste A</option>
+              <option value="B">Poste B</option>
+              <option value="C">Poste C</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="destino">Mover para:</label>
+            <select id="destino" name="destino" disabled aria-disabled="true">
+              <option value="A">Poste A</option>
+              <option value="B">Poste B</option>
+              <option value="C">Poste C</option>
+            </select>
+          </div>
+          <button type="submit" disabled aria-disabled="true" aria-label="Botão de mover disco" class="btn-move">
+            Mover Disco
+          </button>
+        </form>
+        <p id="mensagem" aria-live="polite" class="mensagem"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
+
+

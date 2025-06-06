@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adivinhe o Número</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header role="banner" aria-label="Cabeçalho do site">
+    Adivinhe o Número
+  </header>
+  <main role="main">
+    <section class="hero" aria-label="Introdução ao jogo">
+      <h1>Adivinhe o Número</h1>
+      <p>Digite um número e tente adivinhar!</p>
+    </section>
+    <section class="input-card" aria-label="Entrada para o chute do jogador">
+      <form id="guess-form" onsubmit="return false;" aria-describedby="desc-guess">
+        <label for="guess-input">Seu número:</label>
+        <input 
+          type="number" 
+          id="guess-input" 
+          name="guess-input" 
+          min="0" 
+          max="100" 
+          placeholder="Digite um número entre 0 e 100"
+          aria-required="true" 
+          autocomplete="off" 
+          aria-describedby="desc-guess"
+        />
+        <button class="btn-submit" type="submit" disabled>Chutar!</button>
+        <p id="desc-guess" class="desc-text">
+          Após implementar a lógica, o botão permitirá enviar seu palpite.
+        </p>
+      </form>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

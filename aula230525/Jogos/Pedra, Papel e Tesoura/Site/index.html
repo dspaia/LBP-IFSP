@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jokenpô</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container" role="main" aria-label="Jogo Pedra, Papel e Tesoura">
+    <h1>Pedra, Papel e Tesoura</h1>
+    <p>Escolha uma opção para jogar.</p>
+
+    <aside aria-label="Pontuação do jogo" class="scoreboard" role="region">
+      <div id="player-score">
+        <span class="label">Você</span>
+        <span class="score" aria-live="polite" aria-atomic="true">0</span>
+      </div>
+      <div id="computer-score">
+        <span class="label">Computador</span>
+        <span class="score" aria-live="polite" aria-atomic="true">0</span>
+      </div>
+    </aside>
+
+    <section aria-label="Escolha sua jogada" class="choices" role="list">
+      <button class="choice" role="listitem" aria-label="Escolher Pedra" tabindex="0" type="button" data-move="pedra">
+        <img src="https://img.icons8.com/ios-filled/100/000000/hand-rock.png" alt="Ícone Pedra" />
+      </button>
+      <button class="choice" role="listitem" aria-label="Escolher Papel" tabindex="0" type="button" data-move="papel">
+        <img src="https://img.icons8.com/ios-filled/100/000000/hand.png" alt="Ícone Papel" />
+      </button>
+      <button class="choice" role="listitem" aria-label="Escolher Tesoura" tabindex="0" type="button" data-move="tesoura">
+        <img src="https://img.icons8.com/ios-filled/100/000000/scissors.png" alt="Ícone Tesoura" />
+      </button>
+    </section>
+
+    <section aria-live="polite" aria-atomic="true" id="result-screen" class="result-screen" role="region" aria-label="Resultado da partida"></section>
+  </div>
+
+  <div id="match-modal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal">
+      <h2 id="modal-title">Número de partidas</h2>
+      <p id="modal-desc">Você deseja jogar uma única partida ou determinar um número de partidas?</p>
+      <form id="match-form" onsubmit="return false;">
+        <div class="options">
+          <button type="button" id="single-match" aria-describedby="single-desc">Jogar uma única partida</button>
+          <label for="num-matches" id="num-label">
+            Ou determinar o número de partidas:
+            <input type="number" id="num-matches" name="num-matches" min="1" max="99" placeholder="Ex: 3" aria-labelledby="num-label" />
+          </label>
+          <button type="submit" id="start-button" disabled>Começar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

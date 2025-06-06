@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Batalha Naval - Interface Elegante</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <a href="#" class="logo" aria-label="Logo Batalha Naval">⚓</a>
+      <nav role="navigation" aria-label="Navegação principal">
+        <ul class="nav-list">
+          <li><a href="#" class="nav-link">Início</a></li>
+          <li><a href="#" class="nav-link">Como Jogar</a></li>
+          <li><a href="#" class="nav-link">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <h1 id="hero-title" class="hero-title">Batalha Naval</h1>
+        <p class="hero-subtitle">
+          Interface limpa e intuitiva para a clássica Batalha Naval.
+          <br />
+          Futuramente com jogabilidade integrada via backend.
+        </p>
+        <button class="cta-button" disabled title="Funcionalidade Em Breve">
+          Em breve: Jogar
+        </button>
+      </div>
+    </section>
+
+    <section class="game-section" aria-labelledby="gameboards-title">
+      <div class="container gameboards-container">
+        <article class="tabuleiro" id="tabuleiro-jogador" aria-label="Seu tabuleiro">
+          <h2 id="gameboards-title" class="tabuleiro-title">Seu Tabuleiro</h2>
+          <div class="grid" role="grid" aria-rowcount="10" aria-colcount="10" tabindex="0"></div>
+        </article>
+        <article class="tabuleiro" id="tabuleiro-computador" aria-label="Tabuleiro do computador">
+          <h2 class="tabuleiro-title">Tabuleiro do Computador</h2>
+          <div class="grid" role="grid" aria-rowcount="10" aria-colcount="10"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="controls" aria-labelledby="controls-title">
+      <div class="container controls-container">
+        <h2 id="controls-title" class="section-title">Controle de Ataque</h2>
+        <form class="form-attack" aria-label="Formulário para atacar coordenadas" onsubmit="event.preventDefault()">
+          <div class="input-group">
+            <label for="linha">Linha (0-9):</label>
+            <input type="number" id="linha" name="linha" min="0" max="9" required aria-required="true" />
+          </div>
+          <div class="input-group">
+            <label for="coluna">Coluna (0-9):</label>
+            <input type="number" id="coluna" name="coluna" min="0" max="9" required aria-required="true" />
+          </div>
+          <button type="submit" class="btn-attack" disabled aria-disabled="true" title="Funcionalidade Em Breve">
+            Atacar
+          </button>
+        </form>
+        <p id="mensagem" class="status-message" aria-live="polite" role="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-container">
+      
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

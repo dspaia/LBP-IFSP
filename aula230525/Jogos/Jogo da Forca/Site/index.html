@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jogo da Forca</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Jogo da Forca</h1>
+  <div class="container" role="main" aria-label="Jogo da Forca">
+    <div class="hangman-figure" aria-label="Forca">
+      <div class="gallows-base"></div>
+      <div class="gallows-pole"></div>
+      <div class="gallows-top"></div>
+      <div class="rope"></div>
+      <div class="hangman-part head"></div>
+      <div class="hangman-part body"></div>
+      <div class="hangman-part left-arm"></div>
+      <div class="hangman-part right-arm"></div>
+      <div class="hangman-part left-leg"></div>
+      <div class="hangman-part right-leg"></div>
+    </div>
+
+    <div class="wrong-letters-container" aria-live="polite" aria-atomic="true">
+      <div class="wrong-letters-label">Letras erradas:</div>
+      <div class="wrong-letters" id="wrong-letters">A, T</div>
+    </div>
+
+    <div class="attempts-left" aria-live="polite" aria-atomic="true">
+      Tentativas restantes: 4
+    </div>
+
+    <form class="input-container" onsubmit="return false;" aria-label="Entrada da letra para tentativa">
+      <label for="letter-input">Digite uma letra:</label>
+      <input type="text" id="letter-input" maxlength="1" inputmode="text" aria-describedby="letter-desc" autocomplete="off" />
+      <button id="submit-letter" type="submit" disabled>Enviar</button>
+    </form>
+    <p id="letter-desc" class="sr-only">Digite uma única letra para tentar adivinhar a palavra.</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

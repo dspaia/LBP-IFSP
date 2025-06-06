@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Odisseia</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="main-content" class="container" role="main" aria-label="Página de perguntas do quiz no estilo fantasia">
+    <header class="quiz-header" aria-label="Informações do quiz">
+      <div aria-live="polite" aria-atomic="true" id="score">Pontuação: 8</div>
+      <div aria-live="polite" aria-atomic="true" id="question-number">Pergunta 3 de 10</div>
+    </header>
+
+    <h1 class="question" id="question-text">
+      Qual destes é considerado um sólido estado da matéria?
+    </h1>
+
+    <section class="choices" role="list" aria-label="Alternativas da pergunta">
+      <button type="button" role="listitem" class="choice-button" tabindex="0" aria-describedby="choice-a-text">
+        <span class="choice-label">A</span>
+        <span id="choice-a-text">Água</span>
+      </button>
+      <button type="button" role="listitem" class="choice-button" tabindex="0" aria-describedby="choice-b-text">
+        <span class="choice-label">B</span>
+        <span id="choice-b-text">Gelo</span>
+      </button>
+      <button type="button" role="listitem" class="choice-button" tabindex="0" aria-describedby="choice-c-text">
+        <span class="choice-label">C</span>
+        <span id="choice-c-text">Vapor</span>
+      </button>
+      <button type="button" role="listitem" class="choice-button" tabindex="0" aria-describedby="choice-d-text">
+        <span class="choice-label">D</span>
+        <span id="choice-d-text">Neblina</span>
+      </button>
+    </section>
+  </main>
+
+  <div id="ready-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="ready-title" aria-describedby="ready-desc">
+    <div class="modal" tabindex="-1">
+      <h2 id="ready-title">Você está pronto para começar?</h2>
+      <p id="ready-desc">Quando estiver pronto, clique no botão para iniciar o quiz e testar seus conhecimentos da fantasia!</p>
+      <div class="modal-buttons">
+        <button type="button" class="primary-btn" id="start-btn">Sim, vamos começar!</button>
+        <button type="button" class="secondary-btn" id="not-now-btn">Ainda não</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

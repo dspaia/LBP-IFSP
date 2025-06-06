@@ -1,0 +1,157 @@
+:root {
+  --color-bg: #ffffff;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-accent: #000000;
+  --color-border: #e5e7eb;
+  --color-shadow: rgba(0, 0, 0, 0.05);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+  --input-height: 48px;
+  --max-width: 1200px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 2rem;
+  z-index: 100;
+  box-shadow: 0 2px 6px var(--color-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  user-select: none;
+}
+
+main {
+  flex: 1;
+  max-width: var(--max-width);
+  margin: 3rem auto 4rem;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 0 0.5rem;
+}
+
+.hero {
+  text-align: center;
+}
+
+.hero h1 {
+  font-weight: 800;
+  font-size: 3rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+}
+
+.input-card {
+  background: #f9fafb;
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px var(--color-shadow);
+  padding: 2rem 2.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+label {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 1.125rem;
+}
+
+input[type="number"] {
+  padding: 0 1rem;
+  height: var(--input-height);
+  font-size: 1.125rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  color: var(--color-text-primary);
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+  outline-offset: 2px;
+}
+
+input[type="number"]:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+  outline: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btn-submit {
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.btn-submit:hover,
+.btn-submit:focus {
+  background-color: #444444;
+  outline: none;
+}
+
+.desc-text {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+  main {
+    margin: 2rem auto 3rem;
+  }
+  .input-card {
+    width: 100%;
+    padding: 1.5rem 1.75rem;
+  }
+}

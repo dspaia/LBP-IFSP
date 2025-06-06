@@ -1,0 +1,148 @@
+:root {
+  --color-primary: #2a9d8f;
+  --color-secondary: #e76f51;
+  --color-background: #f4f4f4;
+  --color-text: #333;
+  --color-border: #ccc;
+  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 600px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h1 {
+  color: var(--color-primary);
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-around;
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+}
+
+.scoreboard .label {
+  display: block;
+  font-weight: bold;
+}
+
+.scoreboard .score {
+  font-size: 2rem;
+  color: var(--color-secondary);
+}
+
+.choices {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
+}
+
+.choice {
+  background: transparent;
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s, transform 0.2s;
+}
+
+.choice:hover {
+  border-color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.choice img {
+  width: 64px;
+  height: 64px;
+}
+
+.result-screen {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  min-height: 2rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.modal p {
+  margin-bottom: 1.5rem;
+}
+
+.options button,
+.options input,
+.options label {
+  display: block;
+  margin: 0.5rem auto;
+}
+
+.options input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 60%;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.options button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.options button:hover:not(:disabled) {
+  background-color: var(--color-secondary);
+}
+
+.options button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
