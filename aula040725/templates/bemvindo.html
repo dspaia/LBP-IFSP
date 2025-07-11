@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Bem-vindo</title>
+</head>
+<body class="default-tema">
+    <div class="container">
+        <h1>Seja bem-vindo {{ user }}</h1>
+        <form id="corFormulario" method="POST" action="/bemvindo">
+            <h2>Escolha a cor de fundo que quer usar.</h2>
+            <select id="cor" name="cor">
+                <option value="padrao">Padrão</option>
+                <option value="verao">Verão</option>
+                <option value="primavera">Primavera</option>
+                <option value="inverno">Inverno</option>
+                <option value="outono">Outono</option>
+            </select>
+            <button type="submit">Aplicar</button>
+        </form>
+
+        <form action="{{ url_for('logout') }}"><button type="submit">Logout</button></form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
