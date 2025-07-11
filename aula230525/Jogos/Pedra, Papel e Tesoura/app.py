@@ -1,71 +1,77 @@
 import random
+from flask import Flask, session, request, jsonify, send_from_directory
+
+app = Flask(__name__, static_folder='site', template_folder='site')
+app.secret_key = 'sua_chave_secreta'  # Troque por uma chave segura
 
 opcoes = ["pedra", "papel", "tesoura"]
-pontuacao_jogador = 0
-pontuacao_computador = 0
 
-while True:
-    print(f"--------Jokenpô!--------\n")
-    tipo_jogo = int(input("Quer definir um número de partidas (DIGITE 1) ou jogar até quando quiser (DIGITE 2)? "))
-        
-    if tipo_jogo == 1:
-        partidas = int(input("------------------\nQuantas partidas um dos jogadores precisa ganhar para o jogo terminar? "))
+@app.route('/')
+def index():
+    return send_from_directory('site', 'index.html')
 
-        while pontuacao_computador < partidas and pontuacao_jogador < partidas:
-            escolha = input("------------------\nFaça sua escolha. Pedra, papel ou tesoura? ").lower()
-            if escolha not in opcoes:
-                print("Escolha inválida. Tente novamente.")
-                continue
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory('site', filename)
 
-            computador = random.choice(opcoes)
+@app.route('/api/iniciar', methods=['POST'])
+def iniciar():
+    session['pontuacao_jogador'] = 0
+    session['pontuacao_computador'] = 0
+    partidas = request.get_json().get('partidas')
+    session['partidas'] = partidas if partidas else None
+    return jsonify({
+        'mensagem': 'Novo jogo iniciado!',
+        'partidas': session['partidas'],
+        'pontuacao_jogador': session['pontuacao_jogador'],
+        'pontuacao_computador': session['pontuacao_computador']
+    })
 
-            print(f"------------------\nVocê escolheu {escolha}.")
-            print(f"Seu oponente escolheu {computador}.")
+@app.route('/api/jogar', methods=['POST'])
+def jogar():
+    data = request.get_json()
+    escolha = data.get('escolha')
+    if escolha not in opcoes:
+        return jsonify({'erro': 'Escolha inválida.'}), 400
 
-            if escolha == computador:
-                print(f"------------------\nEmpate! Ambos escolheram {escolha}\nSua pontuação: {pontuacao_jogador}\nPontuação do adversário: {pontuacao_computador}")
-            elif (escolha == "tesoura" and computador == "papel") or (escolha == "papel" and computador == "pedra") or (escolha == "pedra" and computador == "tesoura"):
-                pontuacao_jogador += 1
-                print(f"------------------\nVocê venceu, já que escolheu {escolha} e seu oponente escolheu {computador}.\nSua pontuação: {pontuacao_jogador}\nPontuação do adversário: {pontuacao_computador}")
-            else:
-                pontuacao_computador += 1
-                print(f"------------------\nSeu oponente venceu, já que ele escolheu {computador} e você escolheu {escolha}.\nSua pontuação: {pontuacao_jogador}\nPontuação do adversário: {pontuacao_computador}")
-                
+    computador = random.choice(opcoes)
+    pontuacao_jogador = session.get('pontuacao_jogador', 0)
+    pontuacao_computador = session.get('pontuacao_computador', 0)
+    partidas = session.get('partidas')
+
+    if escolha == computador:
+        resultado = 'empate'
+    elif (escolha == "tesoura" and computador == "papel") or \
+         (escolha == "papel" and computador == "pedra") or \
+         (escolha == "pedra" and computador == "tesoura"):
+        resultado = 'vitoria'
+        pontuacao_jogador += 1
+    else:
+        resultado = 'derrota'
+        pontuacao_computador += 1
+
+    session['pontuacao_jogador'] = pontuacao_jogador
+    session['pontuacao_computador'] = pontuacao_computador
+
+    terminou = False
+    vencedor = None
+    if partidas:
         if pontuacao_jogador == partidas:
-            print(f"------------------\nParabéns, jogador! Você venceu com {pontuacao_jogador} e seu oponente perdeu com {pontuacao_computador}")
+            terminou = True
+            vencedor = 'jogador'
         elif pontuacao_computador == partidas:
-            print(f"------------------\nQue droga! Você perdeu com {pontuacao_jogador} e seu oponente venceu com {pontuacao_computador}")
-        novamente = input("------------------\nQuer jogar de novo? SIM ou NÃO? ")
-        if novamente != "sim":
-            print("Até a próxima!") 
-            break
-        else:
-            pontuacao_computador = 0
-            pontuacao_jogador = 0
+            terminou = True
+            vencedor = 'computador'
 
-    elif tipo_jogo == 2:
-        while True:
-            escolha = input("------------------\nFaça sua escolha. Pedra, papel ou tesoura? ").lower()
-            if escolha not in opcoes:
-                print("Escolha inválida. Tente novamente.")
-                continue
+    return jsonify({
+        'escolha_jogador': escolha,
+        'escolha_computador': computador,
+        'resultado': resultado,
+        'pontuacao_jogador': pontuacao_jogador,
+        'pontuacao_computador': pontuacao_computador,
+        'terminou': terminou,
+        'vencedor': vencedor
+    })
 
-            computador = random.choice(opcoes)
-
-            print(f"------------------\nVocê escolheu {escolha}.")
-            print(f"Seu oponente escolheu {computador}.")
-
-            if escolha == computador:
-                print(f"------------------\nEmpate! Ambos escolheram {escolha}.")
-            elif (escolha == "tesoura" and computador == "papel") or (escolha == "papel" and computador == "pedra") or (escolha == "pedra" and computador == "tesoura"):
-                print(f"------------------\nVocê venceu, já que escolheu {escolha} e seu oponente escolheu {computador}.")
-            else:
-                print(f"------------------\nSeu oponente venceu, já que ele escolheu {computador} e você escolheu {escolha}.")
-
-            novamente = input("------------------\nQuer jogar de novo? SIM ou NÃO? ")
-            if novamente != "sim":
-                print("Até a próxima!") 
-                break
-            else:
-                pontuacao_computador = 0
-                pontuacao_jogador = 0
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,3 +1,5 @@
+from flask import Flask, session, request, jsonify, send_from_directory
+
 class Disco:
     def __init__(self, nome, cor, tamanho):
         self.nome = nome
@@ -12,65 +14,91 @@ class Poste:
     def adicionar_disco(self, disco):
         self.discos.append(disco)
 
-    def exibir_detalhes(self):
-        print(f"Poste {self.nome}: ", end=" ")
-        if self.discos:
-            for disco in reversed(self.discos):
-                print(f" Disco {disco.tamanho}", end=", ")
-        else:
-            print("Nenhum disco")
-        print()
-    
     def mover_disco(self, poste_destino):
         if not self.discos:
-            print(f"Não há discos para mover no poste {self.nome}")
-            return False
-        
+            return False, "Não há discos para mover."
         disco = self.discos[-1]
         if poste_destino.discos and disco.tamanho > poste_destino.discos[-1].tamanho:
-            print("Não é permitido colocar um disco maior sobre um menor.")
-            return False
-            
+            return False, "Não é permitido colocar um disco maior sobre um menor."
         self.discos.pop()
         poste_destino.adicionar_disco(disco)
-        print(f"Movido disco {disco.tamanho} do poste {self.nome} para o poste {poste_destino.nome}.") 
-        return True
+        return True, f"Movido disco {disco.tamanho} do poste {self.nome} para o poste {poste_destino.nome}."
 
-discos = [
-    Disco("n5", "", 5),
-    Disco("n4", "", 4),
-    Disco("n3", "", 3),
-    Disco("n2", "", 2),
-    Disco("n1", "", 1)
-]
+def criar_jogo():
+    discos = [
+        Disco("n5", "", 5),
+        Disco("n4", "", 4),
+        Disco("n3", "", 3),
+        Disco("n2", "", 2),
+        Disco("n1", "", 1)
+    ]
+    postes = [Poste("A"), Poste("B"), Poste("C")]
+    for disco in discos:
+        postes[0].adicionar_disco(disco)
+    return postes
 
-postes = [Poste("A"), Poste("B"), Poste("C")]
-for disco in discos:
-    postes[0].adicionar_disco(disco)
+def serializar_postes(postes):
+    return [
+        {
+            'nome': poste.nome,
+            'discos': [disco.tamanho for disco in poste.discos]
+        }
+        for poste in postes
+    ]
 
-mapa_postes = {poste.nome: poste for poste in postes}
+def desserializar_postes(data):
+    postes = [Poste("A"), Poste("B"), Poste("C")]
+    for i, poste_data in enumerate(data):
+        postes[i].discos = [Disco(f"n{t}", "", t) for t in poste_data['discos']]
+    return postes
 
-contagem = 0
+app = Flask(__name__, static_folder='site', template_folder='site')
+app.secret_key = 'sua_chave_secreta'  # Troque por uma chave segura
 
-while True:
-    print("\n===== Torre de Hanoi =====\n")
-    for poste in postes:
-        poste.exibir_detalhes()
+@app.route('/')
+def index():
+    return send_from_directory('site', 'index.html')
 
-    origem_input = input("Mover de qual poste (A/B/C)? ").strip().upper()
-    destino_input = input("Mover para qual poste (A/B/C)? ").strip().upper()
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory('site', filename)
 
-    origem = mapa_postes.get(origem_input)
-    destino = mapa_postes.get(destino_input)
+@app.route('/api/iniciar', methods=['POST'])
+def iniciar():
+    postes = criar_jogo()
+    session['postes'] = serializar_postes(postes)
+    session['contagem'] = 0
+    return jsonify({
+        'postes': session['postes'],
+        'contagem': session['contagem']
+    })
 
+@app.route('/api/mover', methods=['POST'])
+def mover():
+    data = request.get_json()
+    origem_nome = data.get('origem')
+    destino_nome = data.get('destino')
+    postes = desserializar_postes(session.get('postes'))
+    mapa_postes = {poste.nome: poste for poste in postes}
+    origem = mapa_postes.get(origem_nome)
+    destino = mapa_postes.get(destino_nome)
     if origem and destino:
-        if origem.mover_disco(destino):
-            contagem += 1
-            print(f"Movimentos: {contagem}")
+        sucesso, mensagem = origem.mover_disco(destino)
+        if sucesso:
+            session['contagem'] = session.get('contagem', 0) + 1
+            session['postes'] = serializar_postes(postes)
+            venceu = len(mapa_postes['C'].discos) == 5
+            return jsonify({
+                'sucesso': True,
+                'mensagem': mensagem,
+                'postes': session['postes'],
+                'contagem': session['contagem'],
+                'venceu': venceu
+            })
+        else:
+            return jsonify({'sucesso': False, 'mensagem': mensagem}), 400
     else:
-        print("Poste inválido. Tente novamente com A, B ou C.")
+        return jsonify({'sucesso': False, 'mensagem': 'Poste inválido.'}), 400
 
-    if len(postes[2].discos) == len(discos):
-        print("\nParabéns! Você completou a Torre de Hanoi!")
-        break
-        
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,4 +1,5 @@
 import random
+from flask import Flask, session, request, jsonify, send_from_directory
 
 class Navio:
     def __init__ (self, tamanho, coordenadas):
@@ -44,27 +45,11 @@ class Tabuleiro:
                     return "Afundou um navio!"
                 else:
                     return "Acertou!"
-                
         self.grid[x][y] = 'O'
         return "Água!"
     
     def todos_afundados(self):
         return all(navio.foi_afundado() for navio in self.navios)
-    
-    def exibir(self, revelar_navios = False):
-
-        cabecalho = ("  " + " ".join(str(i) for i in range(self.tamanho)))
-        print(cabecalho)
-
-        for i in range(self.tamanho):
-            linha = []
-            for j in range(self.tamanho):
-                if self.grid[i][j] == 'N' and not revelar_navios:
-                    linha.append('.')
-                else:
-                    linha.append(self.grid[i][j])
-            print(f"{i:2} " + " ".join(linha))
-        print()
 
 def gerar_coordenadas(tamanho, xinicio, xfim, yinicio, yfim):
     coordenadas = []
@@ -81,32 +66,6 @@ def gerar_coordenadas(tamanho, xinicio, xfim, yinicio, yfim):
     else:
         return None
     return coordenadas
-
-def posicionar_navios_manualmente(tabuleiro, informacoes_navios):
-    print("--POSICIONE SEUS NAVIOS NO TABULEIRO--")
-    for nome, tamanho in informacoes_navios.items():
-        while True:
-            tabuleiro.exibir(revelar_navios=True)
-            print(f"Posicione seu {nome} (tamanho: {tamanho})")
-            try:
-                xinicio = int(input(f"Linha inicial (0-{tabuleiro.tamanho - 1}): "))
-                yinicio = int(input(f"Coluna inicial (0-{tabuleiro.tamanho - 1}): "))
-                xfim = int(input(f"Linha final (0-{tabuleiro.tamanho - 1}): "))
-                yfim = int(input(f"Coluna final (0-{tabuleiro.tamanho - 1}): "))
-            except ValueError:
-                print("Tente usar números para posicionar seu navio.")
-                continue
-            coordenadas = gerar_coordenadas(tamanho, xinicio, xfim, yinicio, yfim)
-            if coordenadas is None:
-                print("Não foi possível posicionar seu navio. O posicionamento deve ser reto e condizente com o tamanho do navio.")
-                continue
-            if not tabuleiro.pode_posicionar(coordenadas):
-                print("A posição está ocupada ou não está dentro do tabuleiro. Tente de novo.")
-                continue
-            navio = Navio(tamanho, coordenadas)
-            tabuleiro.posicionar_navio(navio)
-            tabuleiro.exibir(revelar_navios=True)
-            break
 
 def posicionar_navios_automatico(tabuleiro, informacoes_navios):
     for nome, tamanho in informacoes_navios.items():
@@ -125,22 +84,6 @@ def posicionar_navios_automatico(tabuleiro, informacoes_navios):
                 tabuleiro.posicionar_navio(navio)
                 break
 
-def solicitar_jogada (tabuleiro_ataque):
-    while True:
-        try:
-            x = int(input(f"Digite a linha para atacar (0 - {tabuleiro_ataque.tamanho - 1}): "))
-            y = int(input(f"Digite a coluna para atacar (0 - {tabuleiro_ataque.tamanho - 1}): "))
-        except ValueError:
-            print("Números inválidos. Digite números válidos.")
-            continue
-        if not (0 <= x < tabuleiro_ataque.tamanho and 0 <= y < tabuleiro_ataque.tamanho):
-            print("Essas coordenadas não estão no tabuleiro.")
-            continue
-        if tabuleiro_ataque.grid[x][y] in ['X', 'O']:
-            print("Você já atirou nessa posição.")
-            continue
-        return x, y
-
 def jogada_computador(tabuleiro_jogador, tiros_feitos):
     while True:
         x = random.randint(0, tabuleiro_jogador.tamanho-1)
@@ -148,55 +91,72 @@ def jogada_computador(tabuleiro_jogador, tiros_feitos):
         if (x,y) not in tiros_feitos:
             tiros_feitos.add((x,y))
             return x, y
-        
-def main():
-    while True:
-        informacoes_navios = {
-            "destroier": 2,
-            "cruzador": 3,
-            "submarino": 3,
-            "encouraçado": 4,
-            "porta-aviões": 5
-        }
 
-        tabuleiro_jogador = Tabuleiro()
-        tabuleiro_computador = Tabuleiro()
-        tabuleiro_ataque = Tabuleiro()
+app = Flask(__name__, static_folder='site', template_folder='site')
+app.secret_key = 'sua_chave_secreta'  # Troque por uma chave segura
 
-        posicionar_navios_manualmente(tabuleiro_jogador, informacoes_navios)
-        posicionar_navios_automatico(tabuleiro_computador, informacoes_navios)
+@app.route('/')
+def index():
+    return send_from_directory('site', 'index.html')
 
-        tiros_computador = set()
-        print("\n---Que comece a batalha!---")
-        while True:
-            print("--------------------\nSeu tabuleiro:")
-            tabuleiro_jogador.exibir(revelar_navios = True)
-            print("--------------------\nSeu tabuleiro de ataque:")
-            tabuleiro_ataque.exibir()
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory('site', filename)
 
-            print("Sua vez!")
-            x, y = solicitar_jogada(tabuleiro_ataque)
-            resultado = tabuleiro_computador.receber_tiro(x,y)
-            print(resultado)
+@app.route('/api/iniciar', methods=['POST'])
+def iniciar():
+    informacoes_navios = {
+        "destroier": 2,
+        "cruzador": 3,
+        "submarino": 3,
+        "encouraçado": 4,
+        "porta-aviões": 5
+    }
+    tabuleiro_jogador = Tabuleiro()
+    tabuleiro_computador = Tabuleiro()
+    posicionar_navios_automatico(tabuleiro_jogador, informacoes_navios)
+    posicionar_navios_automatico(tabuleiro_computador, informacoes_navios)
+    session['tabuleiro_jogador'] = [[cell for cell in row] for row in tabuleiro_jogador.grid]
+    session['tabuleiro_computador'] = [[cell for cell in row] for row in tabuleiro_computador.grid]
+    session['tiros_computador'] = []
+    return jsonify({'mensagem': 'Novo jogo iniciado!'})
 
-            if tabuleiro_ataque.grid[x][y] not in ['X', 'O']:
-                tabuleiro_ataque.grid[x][y] = 'X' if resultado in ["Acertou!", "Afundou um navio!"] else 'O'
-            if tabuleiro_computador.todos_afundados():
-                print("Parabéns! Você conseguiu afundar todos os navios do seu adversário! Você venceu!")
-                break
+@app.route('/api/tiro', methods=['POST'])
+def tiro():
+    data = request.get_json()
+    x = data.get('x')
+    y = data.get('y')
+    grid_computador = session.get('tabuleiro_computador')
+    grid_ataque = session.get('tabuleiro_jogador')
+    if grid_computador is None or grid_ataque is None:
+        return jsonify({'erro': 'Jogo não iniciado.'}), 400
+    resultado = ""
+    if grid_computador[x][y] in ['X', 'O']:
+        resultado = "Esse local já foi atingido."
+    elif grid_computador[x][y] == 'N':
+        grid_computador[x][y] = 'X'
+        resultado = "Acertou!"
+    else:
+        grid_computador[x][y] = 'O'
+        resultado = "Água!"
+    session['tabuleiro_computador'] = grid_computador
+    return jsonify({'resultado': resultado})
 
-            print("Vez do seu oponente")
-            x, y = jogada_computador(tabuleiro_jogador, tiros_computador)
-            resultado = tabuleiro_jogador.receber_tiro(x, y)
-            print(f"Seu oponente atirou em ({x}, {y}) e {resultado}")
-            if tabuleiro_jogador.todos_afundados():
-                print("Seu oponente afundou todos os seus navios, que droga! Você perdeu.")
-                break
+@app.route('/api/estado', methods=['GET'])
+def estado():
+    grid_jogador = session.get('tabuleiro_jogador')
+    grid_computador = session.get('tabuleiro_computador')
+    if grid_jogador is None or grid_computador is None:
+        return jsonify({'erro': 'Jogo não iniciado.'}), 400
+    return jsonify({
+        'tabuleiro_jogador': grid_jogador,
+        'tabuleiro_computador': grid_computador
+    })
 
-        jogar_novamente = input("Jogar novamente? (s/n): ").strip().lower()
-        if jogar_novamente != "s":
-            print("Obrigado por jogar, até a próxima!")
-            break
+@app.route('/api/sair', methods=['POST'])
+def sair():
+    session.clear()
+    return jsonify({'mensagem': 'Sessão encerrada.'})
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)

@@ -1,35 +1,19 @@
 import random
+from flask import Flask, session, request, jsonify, send_from_directory
 
 class Pergunta:
     def __init__(self, pergunta, resposta, alternativa1, alternativa2, alternativa3, alternativa4):
         self.pergunta = pergunta
         self.resposta = resposta
         self.alternativas = [alternativa1, alternativa2, alternativa3, alternativa4]
-    
-    def exibir_pergunta(self):
-        print(f"-----------------------\nPergunta: {self.pergunta}\n")
 
+    def embaralhar_alternativas(self):
         alternativas_embaralhadas = self.alternativas[:]
         random.shuffle(alternativas_embaralhadas)
-
         letras = ['a', 'b', 'c', 'd']
-        self.mapa_alternativas = dict(zip(letras, alternativas_embaralhadas))
-
-        for letra, alternativa in self.mapa_alternativas.items():
-            if alternativa == self.resposta:
-                self.letra_correta = letra
-                break
-
-        for letra in letras:
-            print(f"{letra}) {self.mapa_alternativas[letra]}")
-
-    def verificar_resposta(self, alternativa_escolhida, pontuacao):
-        if alternativa_escolhida == self.letra_correta:
-            pontuacao += 1
-            print(f"--------------------------\nCerta resposta!\nResposta correta: {self.resposta}\nPontuação: {pontuacao}")
-        else:
-            print(f"--------------------------\nResposta errada!\nResposta correta: {self.letra_correta}: {self.resposta}\nPontuação: {pontuacao}") 
-        return pontuacao
+        mapa = dict(zip(letras, alternativas_embaralhadas))
+        letra_correta = [letra for letra, alt in mapa.items() if alt == self.resposta][0]
+        return mapa, letra_correta
 
 perguntas = [
     Pergunta("1- Qual o nome da terra governada por Odisseu?", "Ítaca", "Tróia", "Grécia", "Ítaca", "Roma"),
@@ -44,15 +28,62 @@ perguntas = [
     Pergunta("10- Qual o desafio que Penélope propõe à Odisseu para provar que ele ainda é seu marido?", "Ela diz para ele mover a cama dos dois, que foi entalhada na árvore em que eles se conheceram.", "Ela pede para Odisseu esticar seu arco, que só ele consegue esticar.", "Ela traz amigos de Odisseu para reconhecê-lo e fazer perguntas sobre sua vida.", "Ela diz para ele mover a cama dos dois, que foi entalhada na árvore em que eles se conheceram.", "Ela não propõe nenhum desafio.")
 ]
 
-pontuacao = 0
+app = Flask(__name__, static_folder='site', template_folder='site')
+app.secret_key = 'sua_chave_secreta'  # Troque por uma chave segura
 
-print(f"-------QUIZ ODISSEIA-------")
+@app.route('/')
+def index():
+    return send_from_directory('site', 'index.html')
 
-for pergunta in perguntas:
-    pergunta.exibir_pergunta()
-    resposta = input("Resposta (a, b, c, d): ").strip().lower()
-    while resposta not in ["a", "b", "c", "d"]:
-        resposta = input("Entrada inválida, digite uma das letras (a, b, c, d): ")
-    pontuacao = pergunta.verificar_resposta(resposta, pontuacao)
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory('site', filename)
 
-print(f"-----------------------------\n🎉 Fim do quiz! Sua pontuação final foi {pontuacao} de {len(perguntas)}.")
+@app.route('/api/iniciar', methods=['POST'])
+def iniciar():
+    session['indice'] = 0
+    session['pontuacao'] = 0
+    session['ordem'] = random.sample(range(len(perguntas)), len(perguntas))
+    return proxima_pergunta()
+
+def proxima_pergunta():
+    indice = session.get('indice', 0)
+    ordem = session.get('ordem', list(range(len(perguntas))))
+    if indice >= len(perguntas):
+        return jsonify({
+            'fim': True,
+            'pontuacao': session.get('pontuacao', 0),
+            'total': len(perguntas)
+        })
+    pergunta_obj = perguntas[ordem[indice]]
+    mapa, _ = pergunta_obj.embaralhar_alternativas()
+    session['mapa'] = mapa
+    session['resposta_correta'] = [letra for letra, alt in mapa.items() if alt == pergunta_obj.resposta][0]
+    return jsonify({
+        'fim': False,
+        'pergunta': pergunta_obj.pergunta,
+        'alternativas': mapa,
+        'indice': indice + 1,
+        'total': len(perguntas)
+    })
+
+@app.route('/api/responder', methods=['POST'])
+def responder():
+    data = request.get_json()
+    alternativa = data.get('alternativa')
+    resposta_correta = session.get('resposta_correta')
+    pontuacao = session.get('pontuacao', 0)
+    correta = alternativa == resposta_correta
+    if correta:
+        pontuacao += 1
+        session['pontuacao'] = pontuacao
+    session['indice'] = session.get('indice', 0) + 1
+    return jsonify({
+        'correta': correta,
+        'resposta_correta': resposta_correta,
+        'pontuacao': pontuacao,
+        'proxima': proxima_pergunta().json
+    })
+
+if __name__ == '__main__':
+    app.run(debug=True)
