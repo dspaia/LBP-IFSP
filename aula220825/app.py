@@ -9,7 +9,7 @@ def index():
 
 @app.route('/base')
 def base():
-    return render_template('base.html')
+    return render_template('base.html', )
 
 @app.route('/livros')
 def livros():
@@ -18,7 +18,7 @@ def livros():
 #Livro
 @app.route('/recursao')
 def recursao():
-    return render_template ('recursao.html', titulo_pagina = "Recursao - LaEli vros", pagina_ativa = 'livro')
+    return render_template('recursao.html', titulo_pagina = "Recursao - LaEli vros", pagina_ativa = 'livro')
 
 #Livro
 @app.route('/tudoerio')
@@ -27,7 +27,7 @@ def tudoerio():
 
 #Livro
 @app.route('/umafamiliafeliz')
-def umafamiliadeliz():
+def umafamiliafeliz():
     return render_template('umafamiliafeliz.html', titulo_pagina = "Uma familia feliz - LaEli vros", pagina_ativa = 'livro')
 
 @app.route('/sobre')

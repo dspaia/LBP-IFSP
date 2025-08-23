@@ -1,0 +1,138 @@
+/* Paleta de Cores */
+:root {
+    --cor-fundo: #f5f5f5;
+    --cor-primaria: #4a148c;
+    --cor-secundaria: #7b1fa2;
+    --cor-destaque: #ce93d8;
+    --cor-texto: #333333;
+    --cor-texto-claro: #ffffff;
+    --cor-link-hover: #ab47bc;
+}
+
+/* Estilo geral */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+/* Cabeçalho */
+header {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    margin: 0.5rem 0;
+}
+
+/* Navegação */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav ul li a {
+    color: var(--cor-texto-claro);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--cor-destaque);
+}
+
+/* Área principal */
+main {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* Lista de livros */
+.lista-livros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.livro {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.livro:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+
+.livro img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+}
+
+.livro h3 {
+    margin: 0.5rem 0;
+    color: var(--cor-primaria);
+}
+
+.livro p {
+    font-size: 0.9rem;
+    color: var(--cor-texto);
+}
+
+/* Rodapé */
+footer {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto-claro);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.livro-detalhes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.livro-detalhes .capa {
+    flex: 1 1 250px;
+    max-width: 300px;
+}
+
+.livro-detalhes .capa img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.livro-detalhes .informacoes {
+    flex: 2 1 400px;
+}
+
+.livro-detalhes .informacoes h2 {
+    margin-top: 0;
+    color: var(--cor-primaria);
+}
+
+.livro-detalhes .informacoes p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}

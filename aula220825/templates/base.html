@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ titulo_pagina }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 
-    <title>Document</title>
-    
 </head>
+
 <body>
     <header>
-        
+        <h1>Bem vindo à LaEli vros</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('livros') }}">Livros</a></li>
+                <li><a href="{{ url_for('contato') }}">Contato</a></li>
+                <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
+            </ul>
+        </nav>
     </header>
-    <menu>
-        
-    </menu>
-    
+
+    <main>
+        {% block content %}
+       
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 LaElio vros. All rights reserved.</p>
+    </footer>
     
 </body>
 </html>

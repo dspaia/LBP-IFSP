@@ -1,0 +1,20 @@
+{% extends "base_livro.html" %}
+
+{% block title %}{{ titulo_pagina }}{% endblock %}
+
+{% block conteudo %}
+<div class="livro-detalhes">
+    <div class="capa">
+        <img src="{{ url_for('static', filename='imagens/umafamiliafeliz_capa.jpg') }}" alt="Uma Família Feliz">
+    </div>
+
+    <div class="informacoes">
+        <h2>Recursão</h2>
+        <p><strong>Autor:</strong> Raphael Montes</p>
+        <p><strong>Avaliação:</strong> ⭐⭐⭐⭐⭐ (5/5)</p>
+        <p><strong>Descrição:</strong> Para você ficar fudido mentalmente rs.</p>
+        <p><strong>Gênero:</strong> Drama</p>
+        <p><strong>Páginas:</strong> 352</p>
+    </div>
+</div>
+{% endblock %}

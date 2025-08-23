@@ -1,23 +1,61 @@
-<!--
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="static/style.css">
-</head>
-<body>
-    <header>
-        
-    </header>
-    <menu >
-        
-    </menu>
-    <script src="static/script.js">
-    </script>
-    
-</body>
-</html>
--->
+{% extends 'base.html' %}
 
+<title>{% block title %}{{titulo_pagina}}{% endblock %}</title>
+
+{% block content %}
+<h1>Bem-vindo à Biblioteca LaEli vros!</h1>
+
+<p>
+A LaElio vros tem o orgulho de apresentar sua mais recente coleção de livros, reunindo obras que prometem encantar leitores de todas as idades e estilos. Nossa missão é transformar cada visita à biblioteca em uma experiência única e inesquecível.
+</p>
+
+<img src="{{ url_for('static', filename='imagens/biblioteca_entrada.jpg') }}" alt="Entrada da biblioteca" style="display:block; margin:20px auto; width:100%; max-width:600px;">
+
+<p>
+Recentemente, nossa equipe selecionou cuidadosamente títulos de diversos gêneros: romance, ficção científica, fantasia, biografias e livros educativos. Cada obra foi escolhida com o objetivo de inspirar, provocar reflexão e, é claro, entreter.
+</p>
+
+<p>
+Entre os destaques da nossa coleção, estão clássicos atemporais, best-sellers internacionais e novas publicações de autores emergentes. Cada livro possui uma sinopse detalhada, informações sobre o autor e avaliações de leitores, para que você possa escolher sua próxima leitura com segurança.
+</p>
+
+<img src="{{ url_for('static', filename='imagens/livros_estante.jpg') }}" alt="Estante de livros" style="display:block; margin:20px auto; width:100%; max-width:600px;">
+
+<p>
+Na página de “Livros”, você encontrará todas as capas de nossa coleção. Basta clicar em qualquer capa para acessar uma página completa com informações detalhadas, descrição, autor, gênero e até avaliações de outros leitores.
+</p>
+
+<p>
+Para os amantes de leitura digital, nossa biblioteca oferece também sugestões de leituras online e artigos exclusivos sobre literatura, escrita criativa e análise de obras renomadas.
+</p>
+
+<p>
+A equipe da LaElio vros está constantemente atualizando nosso acervo, adicionando novas obras e mantendo o conteúdo atualizado. Acreditamos que uma biblioteca viva é aquela que cresce junto com seus leitores.
+</p>
+
+<img src="{{ url_for('static', filename='imagens/leitores_lendo.jpg') }}" alt="Leitores lendo" style="display:block; margin:20px auto; width:100%; max-width:600px;">
+
+<p>
+Nosso espaço não é apenas para leitura, mas também para descobertas. Realizamos eventos, lançamentos de livros e debates literários, oferecendo um ambiente acolhedor e interativo para todos.
+</p>
+
+<p>
+Se você procura uma leitura relaxante após um dia cansativo ou deseja se aprofundar em temas específicos, a LaElio vros é o lugar certo. Aqui, cada livro é uma porta para novas experiências.
+</p>
+
+<p>
+Navegue por nossa biblioteca online, explore as capas, leia as descrições e descubra quais livros despertam sua curiosidade. Cada clique é um convite para mergulhar em histórias fascinantes.
+</p>
+
+<p>
+Não importa se você é um leitor casual ou um apaixonado por literatura: nossa missão é proporcionar experiências literárias memoráveis e incentivar a paixão pelos livros.
+</p>
+
+<p>
+Acompanhe nossas novidades, confira os livros em destaque e compartilhe suas experiências com outros leitores. Juntos, podemos tornar a leitura uma experiência ainda mais rica e divertida.
+</p>
+
+<p>
+A LaElio vros agradece sua visita e espera que cada página lida aqui transforme momentos comuns em grandes aventuras literárias.
+</p>
+{% endblock %}

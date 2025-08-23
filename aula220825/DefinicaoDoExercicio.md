@@ -21,3 +21,8 @@ Instruções:
     Documente e Compare: Elabore um breve relatório comparando a performance e os desafios de desenvolvimento de cada método.
 
 Na aula de hoje, será utilizado o método Aplicações de Múltiplas Páginas (MPA).
+
+Requisitos:
+
+- Usar Flask
+- Usar MPA (ter várias páginas)
