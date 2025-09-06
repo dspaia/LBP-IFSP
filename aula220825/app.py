@@ -13,64 +13,49 @@ def index():
 def base():
     return render_template('base.html', )
 
+@app.route('/livros')
+def livros():
+    return render_template('livros.html', titulo_pagina="Biblioteca - LaEli vros", pagina_ativa='livros')
+
+
 @app.route('/api/livros')
 def api_livros():
     livros = [
         {
-        "id": 1,
-        "conteudo": '''
-        <div class="livro-detalhes">
-            <div class="capa">
-                <img src="/static/imagens/recursao_capa.jpg" alt="Recursão">
-            </div>
-            <div class="informacoes">
-                <h2>Recursão</h2>
-                <p><strong>Autor:</strong> Blake Crounch</p>
-                <p><strong>Avaliação:</strong> ⭐⭐⭐⭐⭐ (5/5)</p>
-                <p><strong>Descrição:</strong> Pra fritar o cérebro até sair pela boca.</p>
-                <p><strong>Gênero:</strong> Ficção Científica</p>
-                <p><strong>Páginas:</strong> 320</p>
-            </div>
-        </div>
-        '''
-},
+            "id": 1,
+            "titulo": "Recursão",
+            "autor": "Blake Crounch",
+            "avaliacao": 5,
+            "descricao": "Pra fritar o cérebro até sair pela boca.",
+            "genero": "Ficção Científica",
+            "paginas": 320,
+            "imagem": "/static/imagens/recursao_capa.jpg",
+            "link": "/recursao"
+        },
 
         {
-        'id': 2,
-         'conteudo': '''
-        <div class="livro-detalhes">
-            <div class="capa">
-                <img src="{{ url_for('static', filename='imagens/tudoerio_capa.jpg') }}" alt="Tudo é Rio">
-            </div>
+            "id": 2,
+            "titulo": "Tudo é Rio",
+            "autor": "Carla Madeira",
+            "avaliacao": 5,
+            "descricao": "Pra cair as prega do cu de tão 'socorro'.",
+            "genero": "Romance de amor (ou não)",
+            "paginas": 210,
+            "imagem": "/static/imagens/tudoerio_capa.jpg",
+            "link": "/tudoerio"
+        },
 
-            <div class="informacoes">
-                <h2>Recursão</h2>
-                <p><strong>Autor:</strong> Carla Madeira</p>
-                <p><strong>Avaliação:</strong> ⭐⭐⭐⭐⭐ (5/5)</p>
-                <p><strong>Descrição:</strong> Pra cair as prega do cu de tão 'socorro'.</p>
-                <p><strong>Gênero:</strong> Romance de amor (ou não)</p>
-                <p><strong>Páginas:</strong> 210</p>
-            </div>
-        </div>''' 
-},
-
-        {'id': 3,
-         'conteudo': '''
-        <div class="livro-detalhes">
-            <div class="capa">
-                <img src="{{ url_for('static', filename='imagens/umafamiliafeliz_capa.jpg') }}" alt="Uma Família Feliz">
-            </div>
-
-            <div class="informacoes">
-                <h2>Uma Família Feliz</h2>
-                <p><strong>Autor:</strong> Tati Bernardi</p>
-                <p><strong>Avaliação:</strong> ⭐⭐⭐⭐⭐ (5/5)</p>
-                <p><strong>Descrição:</strong> Pra rir, chorar e refletir sobre a vida.</p>
-                <p><strong>Gênero:</strong> Romance contemporâneo</p>
-                <p><strong>Páginas:</strong> 256</p>
-            </div>
-        </div>''' 
-}
+        {
+            "id": 3,
+            "titulo": "Uma Família Feliz",
+            "autor": "Raphael Montes",
+            "avaliacao": 5,
+            "descricao": "Para você ficar fudido mentalmente rs.",
+            "genero": "Drama",
+            "paginas": 352,
+            "imagem": "/static/imagens/umafamiliafeliz_capa.jpg",
+            "link": "/umafamiliafeliz"
+        }
     ]
     return jsonify(livros)
 

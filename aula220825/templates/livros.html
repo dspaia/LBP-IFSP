@@ -1,68 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Biblioteca</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <h1>Biblioteca</h1>
-
-    <!-- Botão para carregar livros -->
-    <button id="carregar-btn">Carregar livros</button>
-
-    <!-- Área onde os livros serão inseridos -->
-    <div id="conteudo">
-        <!-- O HTML de cada livro será inserido aqui via JS -->
-    </div>
-
-    <!-- Script JS que busca os livros -->
-    <script src="/static/js/script.js"></script>
-</body>
-</html>
-
-
-
-
-
-
-<!--
 {% extends "base.html" %}
-
-<title>{% block title %}{{titulo_pagina}}{% endblock %}</title>
+{% block title %}{{ titulo_pagina }}{% endblock %}
 
 {% block content %}
-<h2>Biblioteca</h2>]
+<h2>Biblioteca</h2>
 
+<!-- Botão para carregar livros via JS -->
+<button id="carregar-btn">Carregar livros</button>
 
+<!-- Onde os livros carregados aparecerão -->
+<div id="conteudo"></div>
 
-<div class="lista-livros">
-    <div class="livro">
-        <a href="{{ url_for('recursao') }}">
-            <img src="{{ url_for('static', filename='imagens/recursao_capa.jpg') }}" alt="Recursão">
-            <h3>Recursão</h3>
-            <p>Um mergulho na mente humana através da ficção científica.</p>
-        </a>
-    </div>
-
-    <div class="livro">
-        <a href="{{ url_for('tudoerio') }}">
-            <img src="{{ url_for('static', filename='imagens/tudoerio_capa.jpg') }}" alt="Tudo é Rio">
-            <h3>Tudo é Rio</h3>
-            <p>Romance profundo sobre amor e dor.</p>
-        </a>
-    </div>
-
-    <div class="livro">
-        <a href="{{ url_for('umafamiliafeliz') }}">
-            <img src="{{ url_for('static', filename='imagens/umafamiliafeliz_capa.jpg') }}" alt="Uma Família Feliz">
-            <h3>Uma Família Feliz</h3>
-            <p>A vida de uma família, aparentemente, perfeita.</p>
-        </a>
-    </div>
-</div>
-
-
+<!-- Script que faz o fetch e insere os livros -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 {% endblock %}
 
--->
+
+
+
+
+
+
