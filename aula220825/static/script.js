@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const botao = document.getElementById('carregar-btn');
-    const divConteudo = document.getElementById('conteudo');
+    const botao = document.getElementById('carregar-btn')
+    const divConteudo = document.getElementById('conteudo')
 
     botao.addEventListener('click', () => {
-        divConteudo.innerHTML = '<p>Carregando livros...</p>';
+        divConteudo.innerHTML = '<p>Carregando livros...</p>'
 
         fetch('/api/livros')
             .then(res => res.json())
             .then(livros => {
-                let html = '<div class="lista-livros">';
+                let html = '<div class="lista-livros">'
                 livros.forEach(livro => {
                     html += `
                         <div class="livro">
@@ -22,15 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p><strong>Páginas:</strong> ${livro.paginas}</p>
                             </a>
                         </div>
-                    `;
-                });
-                html += '</div>';
+                    `
+                })
+                html += '</div>'
 
-                divConteudo.innerHTML = html;
+                divConteudo.innerHTML = html
             })
             .catch(err => {
-                console.error(err);
-                divConteudo.innerHTML = '<p>Erro ao carregar os livros.</p>';
-            });
-    });
-});
+                console.error(err)
+                divConteudo.innerHTML = '<p>Erro ao carregar os livros.</p
+            })
+    })
+})
+
