@@ -30,8 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => {
                 console.error(err)
-                divConteudo.innerHTML = '<p>Erro ao carregar os livros.</p
+                divConteudo.innerHTML = '<p>Erro ao carregar os livros.</p>'
             })
     })
 })
+
 
