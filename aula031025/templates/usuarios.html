@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Usuarios</title>
+        <style> body {font-family: sans-serif;} </style>
+    </head>
+
+    <body>
+            <h1>Usuários cadastrados</h1>
+            <ul>
+                {% for usuario in lista_de_usuarios %}
+                    <li>{{ usuario.nome }} - {{ usuario.email }} - {{ usuario.admin }}</li>
+                {% else %}
+                    <li>Nenhum usuário encontrado</li>
+                {% endfor %}
+            </ul>
+            <hr>
+            <h2>Adicionar novo usuário</h2>
+            <form method="post" action="/usuarios/novo">
+                <input type="text" name="nome" placeholder="Nome completo" required>
+                <input type="email" name="email" placeholder="Seu melhor email" required>
+                <input type="password" name="senha" placeholder="Senha difícil impossível" required>
+                <button type="submit">Adicionar</button>
+            </form>
+        
+    </body>
+
+</html>
